@@ -1,0 +1,11 @@
+{
+    "name": "evari/tcc",
+    "autoload": {
+        "psr-4": {
+            "Evari\\Tcc\\": "src/"
+        }
+    },
+    "require": {
+        "dompdf/dompdf": "^2.0"
+    }
+}
