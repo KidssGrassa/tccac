@@ -145,7 +145,7 @@ $conteudo_pdf .= "
 $conteudo_pdf .= "</style>";
 $conteudo_pdf .= "</head>";
 $conteudo_pdf .= "<body>";
-$conteudo_pdf .= "<img src='https://cecom.ifc.edu.br/logotipos-do-ifc/'>";
+$conteudo_pdf .= "<img src='https://cecom.ifc.edu.br/wp-content/uploads/sites/10/2022/11/Logo_IFC_horizontal_Sombrio.png'>";
 $conteudo_pdf .= "<h3>NOVA AVALIAÇÃO EM CASO DE FALTA JUSTIFICADA</h3>";
 $conteudo_pdf .= "<p class='titulo'>Referência: Organização Didática do IFC – Resolução 10/2021 – Art. 222\n\nIdentificação do estudante</p>";
 $conteudo_pdf .= "<table class='tabela1'>";

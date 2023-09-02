@@ -135,12 +135,16 @@
         height: 10px;
         border:  none;
     }
+
+    .logo {
+        width: 20%;
+    }
     
     </style>
 </head>
 <body>
     <form method="POST" action="gerador.php">
-<img src="https://cecom.ifc.edu.br/logotipos-do-ifc/">
+<img class="logo" src="https://cecom.ifc.edu.br/wp-content/uploads/sites/10/2022/11/Logo_IFC_horizontal_Sombrio.png ">
     <h3>NOVA AVALIAÇÃO EM CASO DE FALTA JUSTIFICADA</h3>
     <p class="titulo">Referência: Organização Didática do IFC – Resolução 10/2021 – Art. 222
 
