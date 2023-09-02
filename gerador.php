@@ -1,9 +1,12 @@
 <?php
 
-//Referenciar o namespace dompdf
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 use Dompdf\Dompdf;
 
-//Carregar o composer
+
+//Load Composer's autoloader
 require 'vendor/autoload.php';
 
 
@@ -241,6 +244,62 @@ if (!empty($dados) && isset($dados['5'])) {
 }
 $conteudo_pdf .= "</table>";
 
+$mail = new PHPMailer(true);
+
+try {
+    //echo $conteudo_pdf;
+    //Instanciar e usar a classe dompdf
+    $dompdf = new Dompdf();
+
+    //Chamar o metodo loadHtml e enviar o conteudo do PDF
+    $dompdf->loadHtml($conteudo_pdf);
+
+    //Configurar o tamanho ea orientação do papel
+    //landscape - Imprimir no formato paisagem
+    //portrait - Imprimir no formato retrato
+    $dompdf->setPaper('A4', 'portrait');
+
+    //Renderizar o HTML como PDF
+    $dompdf->render();
+
+    // Defina o nome do arquivo PDF gerado
+    $filename = 'meu_arquivo.pdf';
+
+    //Gerar o PDF
+    $dompdf->stream($filename);
+    $pdfString = $dompdf->output();
+
+
+    //Server settings
+    
+    $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'evaristoluizthiago@gmai.com';                     //SMTP username
+    $mail->Password   = 'rnybvggnuwmundlg';                               //SMTP password
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+    //Recipients
+    $mail->setFrom('evaristoluizthiago@gmail.com', 'PDF Site');
+    $mail->addAddress('eluizthiago@gmail.com', 'Joe User');     //Add a recipient
+    //Attachments
+    $mail->addAttachment($dompdf->$filename . '.pdf', 'pdf seg. chamada');    //Optional name
+    $mail->addStringAttachment($pdfString, 'php.pdf');
+   
+    //Content
+    $mail->isHTML(true);                                  //Set email format to HTML
+    $mail->Subject = 'Titulo do email';
+    $mail->Body    = 'Corpo do email';
+    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+    $mail->send();
+    echo 'email enviado com sucesso';
+} catch (Exception $e) {
+    echo "email não enviado {$mail->ErrorInfo}";
+}
+
 
     
 
@@ -260,8 +319,11 @@ $conteudo_pdf .= "</table>";
     //Renderizar o HTML como PDF
     $dompdf->render();
 
+    // Defina o nome do arquivo PDF gerado
+    $filename = 'meu_arquivo.pdf';
+
     //Gerar o PDF
-    $dompdf->stream();
+    $dompdf->stream($filename);
    
 } else{
     header("Location: index.php");
